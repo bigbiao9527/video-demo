@@ -7,60 +7,110 @@
   <meta name="Generator" content="Cocoa HTML Writer">
   <meta name="CocoaVersion" content="2575.7">
   <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000; min-height: 14.0px}
+    span.s1 {font-kerning: none}
   </style>
 </head>
 <body>
-<p class="p1">&lt;script&gt;</p>
-<p class="p1">document.getElementById('videoInput').addEventListener('change', function (e) {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const file = e.target.files[0];</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (!file) return;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>const resultDiv = document.getElementById('result');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>resultDiv.innerHTML = "&lt;p&gt;⏳ 正在加载视频信息...&lt;/p&gt;";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>const video = document.createElement('video');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>video.preload = 'metadata';</p>
-<p class="p1"><span class="Apple-converted-space">  </span>video.muted = true;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>video.playsInline = true; // iPhone 必须加</p>
-<p class="p1"><span class="Apple-converted-space">  </span>video.src = URL.createObjectURL(file);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>// 必须添加到 DOM 才能触发 loadedmetadata</p>
-<p class="p1"><span class="Apple-converted-space">  </span>video.style.display = 'none';</p>
-<p class="p1"><span class="Apple-converted-space">  </span>document.body.appendChild(video);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>video.addEventListener('loadedmetadata', function () {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const width = video.videoWidth;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const height = video.videoHeight;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const duration = video.duration.toFixed(2);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const sizeMB = (file.size / (1024 * 1024)).toFixed(2);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// 显示在页面</p>
-<p class="p1"><span class="Apple-converted-space">    </span>resultDiv.innerHTML = `</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;p&gt;🎞 文件名：&lt;b&gt;${file.name}&lt;/b&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;p&gt;📐 分辨率：&lt;b&gt;${width} × ${height}&lt;/b&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;p&gt;🕒 时长：&lt;b&gt;${duration} 秒&lt;/b&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;p&gt;💾 大小：&lt;b&gt;${sizeMB} MB&lt;/b&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>`;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// ✅ 打印到控制台</p>
-<p class="p1"><span class="Apple-converted-space">    </span>console.log("视频信息：", {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>name: file.name,</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: width,</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: height,</p>
-<p class="p1"><span class="Apple-converted-space">      </span>duration: duration,</p>
-<p class="p1"><span class="Apple-converted-space">      </span>sizeMB: sizeMB</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>URL.revokeObjectURL(video.src);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>video.remove();</p>
-<p class="p1"><span class="Apple-converted-space">  </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>video.addEventListener('error', function () {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>resultDiv.innerHTML = `&lt;p style="color:red;"&gt;⚠️ 无法读取视频元数据，请尝试其他文件。&lt;/p&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>});</p>
-<p class="p1">});</p>
-<p class="p1">&lt;/script&gt;</p>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="zh-CN"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;meta charset="UTF-8"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;title&gt;视频信息检测 Demo&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1">&lt;style&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>body {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>background-color: #f5f5f5;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>margin: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>padding: 40px 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>text-align: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>h2 {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>color: #333;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>margin-bottom: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>input[type=file] {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>padding: 12px 18px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>border: 2px solid #007aff;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>border-radius: 10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>background-color: #fff;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>color: #007aff;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>font-size: 16px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>cursor: pointer;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>#result {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>margin-top: 30px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>font-size: 16px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>color: #111;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>line-height: 1.6;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>text-align: left;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>display: inline-block;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1">&lt;/style&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;body&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;h2&gt;📹 视频参数检测 Demo&lt;/h2&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;input id="videoInput" type="file" accept="video/*"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;div id="result"&gt;&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;script&gt;</span></p>
+<p class="p1"><span class="s1">document.getElementById('videoInput').addEventListener('change', function(e) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const file = e.target.files[0];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if (!file) return;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const resultDiv = document.getElementById('result');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>resultDiv.innerHTML = "&lt;p&gt;⏳ 正在加载视频信息...&lt;/p&gt;";</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>// 创建 video 元素读取本地视频</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const video = document.createElement('video');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>video.preload = 'metadata';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>video.muted = true;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>video.playsInline = true; // iPhone Safari 必须加</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>video.src = URL.createObjectURL(file);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>// 必须添加到 DOM，否则 iPhone 不会触发 loadedmetadata</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>video.style.display = 'none';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.body.appendChild(video);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>video.addEventListener('loadedmetadata', function() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const width = video.videoWidth;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const height = video.videoHeight;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const duration = video.duration.toFixed(2);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const sizeMB = (file.size / (1024*1024)).toFixed(2);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// 显示在页面</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>resultDiv.innerHTML = `</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;p&gt;🎞 文件名：&lt;b&gt;${file.name}&lt;/b&gt;&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;p&gt;📐 分辨率：&lt;b&gt;${width} × ${height}&lt;/b&gt;&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;p&gt;🕒 时长：&lt;b&gt;${duration} 秒&lt;/b&gt;&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;p&gt;💾 大小：&lt;b&gt;${sizeMB} MB&lt;/b&gt;&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>`;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// 打印到控制台</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>console.log("视频信息：", {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>name: file.name,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>width: width,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>height: height,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>duration: duration,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>sizeMB: sizeMB</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// 清理</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>URL.revokeObjectURL(video.src);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>video.remove();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>video.addEventListener('error', function() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>resultDiv.innerHTML = `&lt;p style="color:red;"&gt;⚠️ 无法读取视频元数据，请尝试其他文件。&lt;/p&gt;`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>});</span></p>
+<p class="p1"><span class="s1">});</span></p>
+<p class="p1"><span class="s1">&lt;/script&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
 </body>
 </html>
